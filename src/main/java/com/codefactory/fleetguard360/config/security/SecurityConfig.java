@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "api/auth/**",
                                 "/h2-console/**",
+                                "/graphql",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
@@ -44,17 +45,5 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-        /*return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/graphql").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/graphql").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                //.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();*/
     }
 }
