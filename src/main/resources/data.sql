@@ -1,0 +1,2 @@
+INSERT INTO CONDUCTOR (id, nombre, correo, password) VALUES (1, 'Juan Pérez', 'juan@mail.com', '1234');
+INSERT INTO CONDUCTOR (id, nombre, correo, password) VALUES (2, 'Ana Gómez', 'ana@mail.com', 'abcd');
