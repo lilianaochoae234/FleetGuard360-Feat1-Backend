@@ -38,7 +38,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token) {
         try {
-            extractUsername(token); // valida firma y expiración
+            extractUsername(token);
             return true;
         } catch (JwtException e) {
             return false;
