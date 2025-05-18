@@ -1,7 +1,9 @@
 package com.codefactory.fleetguard360.config.jwt;
 
 import com.codefactory.fleetguard360.repository.ConductorRepository;
+import com.codefactory.fleetguard360.repository.UsuarioRepository;
 import com.codefactory.fleetguard360.repository.entities.Conductor;
+import com.codefactory.fleetguard360.repository.entities.Usuario;
 import com.codefactory.fleetguard360.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private JwtService jwtService;
 
     @Autowired
-    private ConductorRepository conductorRepo;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -39,8 +41,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (jwtService.isTokenValid(token)) {
                 String correo = jwtService.extractUsername(token);
 
-                Conductor conductor = conductorRepo.findByCorreo(correo).orElse(null);
-                if (conductor != null) {
+                Usuario usuario = usuarioRepository.findByEmail(correo).orElse(null);
+                if (usuario != null) {
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(correo, null, List.of());
                     SecurityContextHolder.getContext().setAuthentication(authToken);

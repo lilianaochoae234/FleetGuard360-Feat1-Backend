@@ -1,6 +1,7 @@
 package com.codefactory.fleetguard360.service;
 
 import com.codefactory.fleetguard360.repository.entities.Conductor;
+import com.codefactory.fleetguard360.repository.entities.Usuario;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,10 +17,10 @@ public class JwtService {
 
     private static final String SECRET_KEY = "clave_secreta_super_segura_que_debe_ser_muy_larga";
 
-    public String generateToken(Conductor conductor) {
+    public String generateToken(Usuario usuario) {
         return Jwts.builder()
-                .setSubject(conductor.getCorreo())
-                .claim("id", conductor.getId())
+                .setSubject(usuario.getEmail())
+                .claim("id", usuario.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)

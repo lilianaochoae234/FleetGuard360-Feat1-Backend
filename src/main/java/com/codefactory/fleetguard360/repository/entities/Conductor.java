@@ -1,25 +1,25 @@
 package com.codefactory.fleetguard360.repository.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Conductor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String nombre;
-    private String correo;
-    private String password;
+    private String documentoIdentidad;
+    private String telefono;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,19 +31,27 @@ public class Conductor {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getDocumentoIdentidad() {
+        return documentoIdentidad;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setDocumentoIdentidad(String documentoIdentidad) {
+        this.documentoIdentidad = documentoIdentidad;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
