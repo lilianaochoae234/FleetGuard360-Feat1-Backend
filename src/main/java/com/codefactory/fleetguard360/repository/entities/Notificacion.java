@@ -16,9 +16,9 @@ public class Notificacion {
     private Date fecha;
     private boolean leida;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "turno_id", nullable = false)
-    private List<Turno> turno;
+    private List<Turno> turno;*/
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Notificacion {
         this.leida = leida;
     }
 
-    public List<Turno> getTurno() {
+    /*public List<Turno> getTurno() {
         return turno;
     }
 
     public void setTurno(List<Turno> turno) {
         this.turno = turno;
-    }
+    }*/
 }

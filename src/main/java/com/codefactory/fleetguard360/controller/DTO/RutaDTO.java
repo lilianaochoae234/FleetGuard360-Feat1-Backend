@@ -1,16 +1,10 @@
-package com.codefactory.fleetguard360.repository.entities;
+package com.codefactory.fleetguard360.controller.DTO;
 
-import jakarta.persistence.*;
-
-@Entity
-public class Ruta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String nombre;
-    private String origen;
-    private String destino;
+public class RutaDTO {
+    public int id;
+    public String nombre;
+    public String origen;
+    public String destino;
 
     public int getId() {
         return id;

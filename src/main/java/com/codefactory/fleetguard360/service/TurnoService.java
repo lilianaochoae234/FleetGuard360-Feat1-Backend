@@ -1,0 +1,51 @@
+package com.codefactory.fleetguard360.service;
+
+import com.codefactory.fleetguard360.controller.DTO.TurnoDTO;
+import com.codefactory.fleetguard360.controller.DTO.TurnoResponseDTO;
+import com.codefactory.fleetguard360.mapper.TurnoMapper;
+import com.codefactory.fleetguard360.repository.ConductorRepository;
+import com.codefactory.fleetguard360.repository.RutaRepository;
+import com.codefactory.fleetguard360.repository.TurnoRepository;
+import com.codefactory.fleetguard360.repository.entities.Conductor;
+import com.codefactory.fleetguard360.repository.entities.Ruta;
+import com.codefactory.fleetguard360.repository.entities.Turno;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TurnoService {
+
+    @Autowired
+    private TurnoRepository turnoRepository;
+
+    @Autowired
+    private ConductorRepository conductorRepository;
+
+    @Autowired
+    private RutaRepository rutaRepository;
+
+    @Autowired
+    private TurnoMapper turnoMapper;
+
+
+    public TurnoResponseDTO crearTurno(TurnoDTO dto) {
+        Conductor conductor = conductorRepository.findById(dto.conductorId)
+                .orElseThrow(() -> new RuntimeException("Conductor no encontrado"));
+
+        Ruta ruta = rutaRepository.findById(dto.rutaId)
+                .orElseThrow(() -> new RuntimeException("Ruta no encontrada."));
+
+        Turno turno = new Turno();
+        turno.setInicio(dto.inicio);
+        turno.setFin(dto.fin);
+        turno.setEstado(dto.estado);
+        turno.setConductorId(conductor);
+        turno.setRuta(ruta);
+
+        Turno turnoGuardado = turnoRepository.save(turno);
+
+        return turnoMapper.turnoToTurnoResponseDTO(turnoGuardado);
+    }
+}

@@ -1,25 +1,14 @@
-package com.codefactory.fleetguard360.repository.entities;
+package com.codefactory.fleetguard360.controller.DTO;
 
-import jakarta.persistence.*;
 import java.util.Date;
 
-@Entity
-public class Turno {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TurnoResponseDTO {
     private int id;
-
     private Date inicio;
     private Date fin;
     private String estado;
-
-    @ManyToOne
-    @JoinColumn(name = "conductor_id", nullable = false)
-    private Conductor conductorId;
-
-    @ManyToOne
-    @JoinColumn(name = "ruta_id", nullable = false)
-    private Ruta ruta;
+    private ConductorDTO conductor;
+    private RutaDTO ruta;
 
     public int getId() {
         return id;
@@ -53,19 +42,21 @@ public class Turno {
         this.estado = estado;
     }
 
-    public Conductor getConductorId() {
-        return conductorId;
+    public ConductorDTO getConductor() {
+        return conductor;
     }
 
-    public void setConductorId(Conductor conductorId) {
-        this.conductorId = conductorId;
+    public void setConductor(ConductorDTO conductor) {
+        this.conductor = conductor;
     }
 
-    public Ruta getRuta() {
+    public RutaDTO getRuta() {
         return ruta;
     }
 
-    public void setRuta(Ruta ruta) {
+    public void setRuta(RutaDTO ruta) {
         this.ruta = ruta;
     }
 }
+
+
