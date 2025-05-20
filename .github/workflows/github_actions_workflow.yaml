@@ -9,8 +9,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
-      - name: Run Sonar Analysis with Gradle
-        run: ./gradlew sonarqube
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
