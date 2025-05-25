@@ -26,7 +26,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=arboleda5252
-            -Dsonar.projectKey=FleetGuard360-Feat1-Backend
+            -Dsonar.projectKey=Arboleda5252_FleetGuard360-Feat1-Backend
             -Dsonar.sources=src/main/java
             -Dsonar.language=java
             -Dsonar.java.binaries=build/classes/java/main
