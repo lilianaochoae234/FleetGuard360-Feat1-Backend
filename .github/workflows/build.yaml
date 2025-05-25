@@ -1,24 +1,35 @@
-name: "Sonar Scan"
-# Update
+name: "sonarcloud scan githubActions"
 on:
   push:
     branches:
       - main
-
 jobs:
-  build-and-analyze:
+  build:
     runs-on: [ ubuntu-latest ]
     steps:
       - name: Checkout Source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+            fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=arboleda5252
+            -Dsonar.projectKey=FleetGuard360-Feat1-Backend
+            -Dsonar.sources=src/main/java
+            -Dsonar.language=java
+            -Dsonar.java.binaries=build/classes/java/main
 
       - name:  Cache SonarCloud packages
         uses: actions/cache@v4
@@ -26,17 +37,4 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-
-      - name: Cache local Gradle repository
-        uses: actions/cache@v4
-        with:
-         path: ~/.gradle/caches
-         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-         restore-keys: |
-          ${{ runner.os }}-gradle-
-
-      - name: Build and analyse
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: 'https://sonarcloud.io/'
-        run: ./gradlew sonarqube
+        
